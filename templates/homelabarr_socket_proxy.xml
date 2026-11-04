@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<Container version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/nwithan8/unraid_templates/main/templates/template_schema.xsd template_schema.xsd">
+    <Name>Homelabarr - Socket Proxy</Name>
+    <Repository>lscr.io/linuxserver/socket-proxy:latest</Repository>
+    <Registry>https://docs.linuxserver.io/images/docker-socket-proxy</Registry>
+    <Branch>
+        <Tag>latest</Tag>
+        <TagDescription>Latest stable release</TagDescription>
+    </Branch>
+    <Network>homelabarr</Network>
+    <Privileged>false</Privileged>
+    <Support>https://homelabarr.com</Support>
+    <Project>https://demo.homelabarr.com/</Project>
+    <Overview>
+        Docker socket proxy preset for Homelabarr. The Homelabarr Backend reaches Docker only through this proxy, which allows listing, starting, stopping and restarting containers and reading their logs, and refuses exec, build and the other dangerous endpoints. Install it before the Backend.
+    </Overview>
+    <Beta>False</Beta>
+    <Category>Productivity: Tools: Other: Status:Stable</Category>
+    <ExtraSearchTerms>home lab docker containers management gui web interface deploy</ExtraSearchTerms>
+    <Icon>https://raw.githubusercontent.com/nwithan8/unraid_templates/master/images/homelabarr-icon.png</Icon>
+    <TemplateURL>https://raw.githubusercontent.com/nwithan8/unraid_templates/main/templates/homelabarr_socket_proxy.xml</TemplateURL>
+    <Screenshot>https://raw.githubusercontent.com/smashingtags/homelabarr-assets/main/screenshots/homelabarr-app-recording.gif</Screenshot>
+    <Maintainer>
+        <WebPage>https://github.com/nwithan8</WebPage>
+    </Maintainer>
+    <Changes>
+        ### 2026-11-04
+
+        Initial release, preset for Homelabarr 2.6.
+    </Changes>
+    <Requires>
+        Install all three Homelabarr templates: Socket Proxy, Backend and Frontend. Create their network once from the Unraid terminal: docker network create homelabarr
+    </Requires>
+    <ExtraParams>--read-only --tmpfs /run --network-alias homelabarr-socket-proxy</ExtraParams>
+    <Config Name="Docker socket" Target="/var/run/docker.sock" Default="/var/run/docker.sock" Mode="ro" Description="Path to the Docker socket. Mounted read-only." Type="Path" Display="advanced-hide" Required="true" Mask="false">/var/run/docker.sock</Config>
+    <Config Name="Allow CONTAINERS" Target="CONTAINERS" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow IMAGES" Target="IMAGES" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow NETWORKS" Target="NETWORKS" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow VOLUMES" Target="VOLUMES" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow INFO" Target="INFO" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow VERSION" Target="VERSION" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow PING" Target="PING" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow EVENTS" Target="EVENTS" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow POST" Target="POST" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow ALLOW_START" Target="ALLOW_START" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow ALLOW_STOP" Target="ALLOW_STOP" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow ALLOW_RESTARTS" Target="ALLOW_RESTARTS" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow ALLOW_LOGS" Target="ALLOW_LOGS" Default="1" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">1</Config>
+    <Config Name="Allow BUILD" Target="BUILD" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow COMMIT" Target="COMMIT" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow CONFIGS" Target="CONFIGS" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow EXEC" Target="EXEC" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow GRPC" Target="GRPC" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow PLUGINS" Target="PLUGINS" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow SECRETS" Target="SECRETS" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow SESSION" Target="SESSION" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow SWARM" Target="SWARM" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow SYSTEM" Target="SYSTEM" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow NODES" Target="NODES" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow SERVICES" Target="SERVICES" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow TASKS" Target="TASKS" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Allow DISTRIBUTION" Target="DISTRIBUTION" Default="0" Description="Preset for Homelabarr. Not recommended to change." Type="Variable" Display="always-hide" Required="true" Mask="false">0</Config>
+    <Config Name="Log Level" Target="LOG_LEVEL" Default="warning" Description="Proxy log level." Type="Variable" Display="advanced-hide" Required="true" Mask="false">warning</Config>
+</Container>

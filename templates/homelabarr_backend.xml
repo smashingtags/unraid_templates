@@ -8,36 +8,46 @@
         <TagDescription>Latest stable release</TagDescription>
     </Branch>
     <Network>homelabarr</Network>
-    <Privileged>true</Privileged>
+    <Privileged>false</Privileged>
     <Support>https://homelabarr.com</Support>
     <Project>https://demo.homelabarr.com/</Project>
     <Overview>
         A beautiful, modern web interface for managing your home lab Docker containers. Homelabarr makes it easy to deploy and manage self-hosted applications with just a few clicks. &#xD;
         [br]
-        This is the backend component of the Homelabarr stack. It is designed to be used in conjunction with the Homelabarr frontend.
+        This is the backend component of the Homelabarr stack. It is designed to be used with the Homelabarr Frontend and Homelabarr Socket Proxy containers.
     </Overview>
     <Beta>False</Beta>
     <Category>Productivity: Tools: Other: Status:Stable</Category>
     <ExtraSearchTerms>home lab docker containers management gui web interface deploy</ExtraSearchTerms>
     <Icon>https://raw.githubusercontent.com/nwithan8/unraid_templates/master/images/homelabarr-icon.png</Icon>
-    <TemplateURL>https://raw.githubusercontent.com/nwithan8/unraid_templates/main/templates/homelabarr_frontend.xml</TemplateURL>
+    <TemplateURL>https://raw.githubusercontent.com/nwithan8/unraid_templates/main/templates/homelabarr_backend.xml</TemplateURL>
     <Screenshot>https://raw.githubusercontent.com/smashingtags/homelabarr-assets/main/screenshots/homelabarr-app-recording.gif</Screenshot>
     <Maintainer>
         <WebPage>https://github.com/nwithan8</WebPage>
     </Maintainer>
     <Changes>
+        ### 2026-11-04
+
+        Updated for Homelabarr 2.6: new ports and settings, secrets, a dedicated socket proxy, and plain-HTTP login on the LAN.
+
         ### 2025-02-02
 
         Initial release
     </Changes>
     <Requires>
-        Requires a separate Homelabarr frontend container.
+        Install all three Homelabarr templates: Socket Proxy, Backend and Frontend. Create their network once from the Unraid terminal: docker network create homelabarr
     </Requires>
-    <ExtraParams>--group-add 999</ExtraParams>
-    <Config Name="API Port" Target="3001" Default="3001" Mode="tcp" Description="Container Port: 3001" Type="Port" Display="always-hide" Required="true" Mask="false">3001</Config>
-    <Config Name="Docker socket" Target="/var/run/docker.sock" Default="/var/run/docker.sock" Mode="rw" Description="Path to the Docker socket" Type="Path" Display="advanced-hide" Required="true" Mask="false">/var/run/docker.sock</Config>
+    <ExtraParams>--user 0:0 --network-alias homelabarr-backend</ExtraParams>
+    <Config Name="Dashboard address" Target="CORS_ORIGIN" Default="" Description="The address you open Homelabarr at, exactly as typed in the browser, for example http://192.168.1.10:8084" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+    <Config Name="Allow plain HTTP" Target="ALLOW_PLAIN_HTTP" Default="true|false" Description="Set to true if you open Homelabarr at a plain http:// address on your LAN (the usual Unraid setup). Without it the browser drops the login cookie and you land back on the login screen. Set to false behind an HTTPS reverse proxy." Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+    <Config Name="Admin password" Target="DEFAULT_ADMIN_PASSWORD" Default="" Description="Password for the first login as admin. Change it from the dashboard after logging in." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+    <Config Name="Session signing key" Target="JWT_SECRET" Default="" Description="Random value of at least 32 characters. Generate one in the Unraid terminal with: openssl rand -hex 32" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+    <Config Name="Database encryption key" Target="SQLCIPHER_KEY" Default="" Description="Random value of at least 32 characters that encrypts the database. Keep a copy: the database cannot be opened without it. Generate one in the Unraid terminal with: openssl rand -hex 32" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+    <Config Name="Data" Target="/app/data" Default="/mnt/user/appdata/homelabarr/data" Mode="rw" Description="Database and app data." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/homelabarr/data</Config>
+    <Config Name="Config" Target="/app/server/config" Default="/mnt/user/appdata/homelabarr/config" Mode="rw" Description="Users, API keys and favorites." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/homelabarr/config</Config>
+    <Config Name="Activity" Target="/app/server/activity-data" Default="/mnt/user/appdata/homelabarr/activity" Mode="rw" Description="Activity and audit log." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/homelabarr/activity</Config>
+    <Config Name="Docker endpoint" Target="DOCKER_HOST" Default="tcp://homelabarr-socket-proxy:2375" Description="Where the backend reaches Docker: the Homelabarr Socket Proxy. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">tcp://homelabarr-socket-proxy:2375</Config>
     <Config Name="Node Environment" Target="NODE_ENV" Default="production" Description="Node environment. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">production</Config>
-    <Config Name="CORS Origin" Target="CORS_ORIGIN" Default="*" Description="CORS origin." Type="Variable" Display="advanced-hide" Required="true" Mask="false">*</Config>
-    <Config Name="Internal API Port" Target="PORT" Default="3001" Description="Internal API port. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">3001</Config>
-    <Config Name="Internal Docker Socket Path" Target="DOCKER_SOCKET" Default="/var/run/docker.sock" Description="Path to the internal Docker socket. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">/var/run/docker.sock</Config>
+    <Config Name="Internal API Port" Target="PORT" Default="8092" Description="Internal API port. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">8092</Config>
+    <Config Name="Trusted proxy hops" Target="TRUST_PROXY_HOPS" Default="1" Description="Number of proxies in front of the backend (the frontend is one). Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">1</Config>
 </Container>
