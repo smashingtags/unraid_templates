@@ -1189,13 +1189,13 @@
         "files_to_check": [
             {
                 "file_path": "docker-compose.yml",
-                "commit_hash": "f014bd8b03262c5b2329c5fb8f079e4d14f4d3ea",
-                "commit_message": "Backport portable Facet Cloud fixes\n"
+                "commit_hash": "1ad62563bd4c0b6a3610bca979f50d8918b241ed",
+                "commit_message": "fix: harden self-hosted Facet and complete public and admin workflows (#521)\n\nEnforce public/private and purchase boundaries, keep self-hosted courses free, and require operator SMTP for all email. Make newsletter progress durable and resumable, repair authentication and recovery flows, update dependencies, improve public/admin UX, and rewrite the documentation.\n\nValidated with the full backend race and security suites, 256 production browser/API checks, both architecture builds, migration/upgrade probes, and a clean review of the final PR head."
             },
             {
                 "file_path": ".env.example",
-                "commit_hash": "cb76dbc1c7009cc7839a20d5ee9a6622e36a3238",
-                "commit_message": "docs: comprehensive documentation audit for email notifications and testimonials\n\nUpdate all documentation to reflect current state of the PR:\n- .env.example: add SMTP configuration section\n- CHANGELOG: add v2.18.0 entry with all features and fixes\n- README: update config table, admin routes, project structure\n- DESIGN.md: add testimonial endpoints, SMTP vars, data model\n- ROADMAP.md: update current status, Phase 20.1 details\n- SETUP.md: add SMTP env vars, email notifications section\n- TESTIMONIALS.md: update implementation checklist, email flow\n"
+                "commit_hash": "23cb9cf74ba9a6ae7be2168f75ec2b7226b08c05",
+                "commit_message": "feat: improve self-hosted publishing, reliability and product UX (#522)\n\nPreserve edits and publication boundaries through failed reads, uncertain writes and shared-page access. Improve standalone Facet guidance, navigation, accessibility, courses, operator SMTP, request privacy and documentation.\n\nValidated with the complete backend race suite, 622 frontend checks, both image architectures and production-image SMTP, responsive, log privacy and backup/restore probes."
             }
         ]
     },
@@ -1326,8 +1326,8 @@
         "files_to_check": [
             {
                 "file_path": "docker-compose.yml",
-                "commit_hash": "1d00aff570aca81279aea46f9fcfcfa52fd179da",
-                "commit_message": "more newcomer friendly compose\n\nyay, an up-to-date prebuilt image!\n\nthis changes the provided compose file to be more in-line with what a user would likely expect (as opposed to having to clone the full repo to build the image locally). the instructions about how to build the image with a compose file in the readme are still valid in-case people still want to go that route\n\n(thanks oyster.cafe!)\n"
+                "commit_hash": "7dd40a5ba6f8badd0045793617458d32529f8d21",
+                "commit_message": "Update compose to use tagged release\n"
             }
         ]
     },
