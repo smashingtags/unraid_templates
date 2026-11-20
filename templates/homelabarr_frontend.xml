@@ -27,6 +27,10 @@
         <WebPage>https://github.com/nwithan8</WebPage>
     </Maintainer>
     <Changes>
+        ### 2026-11-20
+
+        Homelabarr 2.6.8 sends anonymous usage data to the project. Added a setting to turn it off.
+
         ### 2026-11-04
 
         Updated for Homelabarr 2.6: new ports and settings, secrets, a dedicated socket proxy, and plain-HTTP login on the LAN.
@@ -40,5 +44,6 @@
     </Requires>
     <Config Name="Web UI Port" Target="8080" Default="8084" Mode="tcp" Description="Port you open Homelabarr at." Type="Port" Display="always" Required="true" Mask="false">8084</Config>
     <Config Name="Allow plain HTTP" Target="ALLOW_PLAIN_HTTP" Default="true|false" Description="Set to true if you open Homelabarr at a plain http:// address on your LAN (the usual Unraid setup). Without it the browser drops the login cookie and you land back on the login screen. Set to false behind an HTTPS reverse proxy." Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+    <Config Name="Anonymous usage data" Target="ANALYTICS" Default="on|off" Description="From version 2.6.8 Homelabarr sends anonymous usage data to the project: page views, clicks with all text masked, the version and a random install id. It never sends your address, hostnames, usernames, container names or settings. Set to off to send nothing." Type="Variable" Display="always" Required="false" Mask="false">on</Config>
     <Config Name="Backend address" Target="BACKEND_URL" Default="http://homelabarr-backend:8092" Description="Where the frontend reaches the Homelabarr Backend. Not recommended to change." Type="Variable" Display="advanced-hide" Required="true" Mask="false">http://homelabarr-backend:8092</Config>
 </Container>
